@@ -22,5 +22,8 @@ namespace ECommerce.API.Models
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset UpdatedAt { get; set; }
         public DateTimeOffset? DeletedAt { get; set; } = null;
+
+        // Navigation properties
+        public ICollection<RefreshToken>? RefreshTokens { get; set; }
     }
 }
