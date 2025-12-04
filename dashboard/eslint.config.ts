@@ -19,10 +19,21 @@ export default defineConfigWithVueTs(
 
   pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
-  
+
   {
     ...pluginVitest.configs.recommended,
     files: ['src/**/__tests__/*'],
+  },
+  // Lower severity for unused variables/imports to warnings
+  {
+    rules: {
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { args: 'after-used', argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
+      'vue/attributes-order': ['warn'],
+    },
   },
   skipFormatting,
 )

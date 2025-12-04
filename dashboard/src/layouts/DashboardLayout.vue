@@ -1,9 +1,10 @@
 <script setup lang="ts"></script>
 
 <template>
-  <el-config-provider size="large">
+  <div>
+    Dashboard layout
     <router-view />
-  </el-config-provider>
+  </div>
 </template>
 
-<style></style>
+<style scoped lang="scss"></style>
