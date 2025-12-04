@@ -1,3 +1,7 @@
+using ECommerce.API.Common.Exceptions;
+using System.Net;
+using System.Text.Json;
+
 namespace ECommerce.API.Middlewares;
 
 public class GlobalExceptionHandlerAsync
@@ -19,8 +23,51 @@ public class GlobalExceptionHandlerAsync
         catch (Exception ex)
         {
             _logger.LogError(ex, "An unhandled exception has occurred.");
-            context.Response.StatusCode = 500;
-            await context.Response.WriteAsync("An unexpected fault happened. Try again later.");
+            await HandleExceptionAsync(context, ex);
         }
     }
+    public Task HandleExceptionAsync(HttpContext context, Exception exception)
+    {
+        HttpStatusCode status;
+        string message = exception.Message;
+
+        switch (exception)
+        {
+            case NotFoundException:
+                status = HttpStatusCode.NotFound;
+                break;
+
+            case BadRequestException:
+                status = HttpStatusCode.BadRequest;
+                break;
+
+            case UnauthorizedException:
+                status = HttpStatusCode.Unauthorized;
+                break;
+
+            case ForbiddenException:
+                status = HttpStatusCode.Forbidden;
+                break;
+
+            default:
+                status = HttpStatusCode.InternalServerError;
+                message = "An unexpected error occurred.";
+                break;
+        }
+
+        var errorResponse = new
+        {
+            success = false,
+            status = (int)status,
+            message
+        };
+
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = (int)status;
+
+        return context.Response.WriteAsync(
+            JsonSerializer.Serialize(errorResponse)
+        );
+    }
 }
+

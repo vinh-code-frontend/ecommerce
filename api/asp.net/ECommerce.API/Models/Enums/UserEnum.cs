@@ -2,23 +2,22 @@ namespace ECommerce.API.Models.Enums
 {
     public enum AuthProvider
     {
-        LOCAL,
-        GOOGLE,
-        FACEBOOK,
-        TWITTER
+        Local,
+        Google,
+        Facebook
     }
     public enum RoleEnum
     {
-        ADMIN,
-        CUSTOMER,
-        STAFF,
-        SELLER
+        Admin,
+        Customer,
+        Staff,
+        Seller
     }
     public enum UserStatus
     {
-        ACTIVE,
-        INACTIVE,
-        BANNED,
-        DELETED
+        Active,
+        Inactive,
+        Banned,
+        Deleted
     }
 }
