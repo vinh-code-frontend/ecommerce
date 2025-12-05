@@ -1,0 +1,64 @@
+## Build Folders ##
+bin/
+obj/
+out/
+
+## User-specific files ##
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Visual Studio Code ##
+.vscode/
+
+## Visual Studio ##
+.vs/
+*.vscode
+
+## Rider ##
+.idea/
+
+## Logs ##
+*.log
+*.tlog
+
+## NuGet ##
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+project.lock.json
+project.fragment.lock.json
+
+## ASP.NET temporary files ##
+appsettings.*.json
+*.dbmdl
+*.dbproj.schemaview
+TestResults/
+*.publishsettings
+
+## IIS ##
+_IISExpress/
+*.vspscc
+*.vssscc
+
+## Others ##
+*.cache
+*.pdb
+*.pidb
+*.mdb
+*.opendb
+*.sdf
+*.db
+*.sqlite
+*.DS_Store
+*.orig
+*.swp
+*.class
+*.war
+*.jar
+*.zip
+*.tar.gz
+*.7z
