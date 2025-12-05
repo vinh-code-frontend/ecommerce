@@ -1,4 +1,5 @@
 using ECommerce.API.DTOs;
+using ECommerce.API.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -10,49 +11,26 @@ namespace ECommerce.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
-        public UserController(ILogger<UserController> logger)
+        private readonly UserSerivces _userSerivces;
+        public UserController(ILogger<UserController> logger, UserSerivces userSerivces)
         {
             _logger = logger;
-        }
-        // GET: api/<UserController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
+            _userSerivces = userSerivces;
         }
 
-        // GET api/<UserController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterUserDTO value)
+        public async Task<IActionResult> Register([FromBody] RegisterRequestDTO dto)
         {
-            _logger.LogInformation("Registering user: {Username}, {Email}", value.Username, value.Email);
-            throw new NotImplementedException();
-            return Ok("ok");
+            var result = await _userSerivces.RegisterAsync(dto);
+            return Ok(result);
         }
 
-        // POST api/<UserController>
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] string value)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDTO dto)
         {
-            _logger.LogInformation("Received value: {Value}", value);
-            return Ok("ok");
-        }
-
-        // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+            var result = await _userSerivces.LoginAsync(dto, ip);
+            return Ok(result);
         }
     }
 }

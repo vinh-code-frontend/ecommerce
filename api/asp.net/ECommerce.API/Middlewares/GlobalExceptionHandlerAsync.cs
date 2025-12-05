@@ -41,6 +41,10 @@ public class GlobalExceptionHandlerAsync
                 status = HttpStatusCode.BadRequest;
                 break;
 
+            case ConflictException:
+                status = HttpStatusCode.Conflict;
+                break;
+
             case UnauthorizedException:
                 status = HttpStatusCode.Unauthorized;
                 break;
