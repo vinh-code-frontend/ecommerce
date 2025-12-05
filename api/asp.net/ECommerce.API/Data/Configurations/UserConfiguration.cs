@@ -33,6 +33,9 @@ namespace ECommerce.API.Data.Configurations
 
             builder.Property(u => u.Status)
                 .HasConversion<string>().HasMaxLength(20);
+
+            builder.HasIndex(u => u.Username).IsUnique();
+            builder.HasIndex(u => u.Email).IsUnique();
         }
     }
 }

@@ -6,6 +6,7 @@ import { ref, type UnwrapRef } from 'vue'
 
 const model = ref({
   username: '',
+  email: '',
   password: '',
   fullName: '',
   phone: '',
@@ -23,10 +24,9 @@ const rules: FormRules<UnwrapRef<typeof model>> = {
 const handleSave = async () => {
   try {
     await formRef.value?.validate()
-    console.log('submitted')
-    const res = await request.post<string[]>('/user/register', {
+    // console.log(model.value)
+    const res = await request.post<string[]>('/user/login', {
       ...model.value,
-      value: 'string',
     })
     console.log(res)
   } catch (error) {
@@ -50,6 +50,9 @@ const handleSave = async () => {
     </el-form-item>
     <el-form-item prop="password" label="Password" required>
       <el-input v-model="model.password" />
+    </el-form-item>
+    <el-form-item prop="email" label="Email">
+      <el-input v-model="model.email" />
     </el-form-item>
     <el-form-item prop="fullName" label="Full name">
       <el-input v-model="model.fullName" />
